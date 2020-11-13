@@ -1,0 +1,75 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Slabo+13px&family=Ultra&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Permanent+Marker&display=swap');
+
+/*@font-face {
+    font-family: 'Baskerville Normal';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Baskerville Normal'), url('baskvl.woff') format('woff');
+    }*/
+
+*{
+    box-sizing: border-box;
+    /*transition: all ease-in-out 250ms;*/
+    /* margin-left: 5%;
+    margin-right: 5%; */
+}
+
+body{
+    margin :0px;
+    text-align: center;
+}
+
+
+.name {
+    font-size: 50px;
+    margin-bottom: -5px;
+    font-family: 'Permanent Marker';
+}
+
+.name:hover{
+    /*background: -webkit-linear-gradient(#B6E5D8, #21B6A8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: left 2s;*/
+    opacity: 80%;
+}
+
+header {
+    left: 0;
+    right: 0;
+    margin: 1em;
+}
+
+nav ul {
+    margin:0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin: 1em;
+   
+}
+
+nav a {
+    font-weight:900 ;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: .8rem;
+    padding: .5em;
+    color: #8c8c8c;
+}
+
+nav a:hover, 
+nav a:focus {
+    color: #cbcba9;
+}
+
+  
+
+  
+
+   
+  
