@@ -24,9 +24,13 @@ body {
   }
   
   .gallery-item img {
-    margin-top: 8px;
+    /* margin-top: 8px;
     max-width: 99%;
+    display: block; */    margin: auto;
+    width: 99%;
+    padding-top: 8px;
     display: block;
+    
   }
 
 .gallery-item {
