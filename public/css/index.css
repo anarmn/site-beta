@@ -1,111 +1,168 @@
-figure{
-    margin-block-end: 0em;
-    margin-block-start: 0em;
-    margin-inline-end: 0px;
-    margin-inline-start: 0px;
-}
-
-img {
-    
-    max-width: 50%;
-    height: auto;
-    padding-bottom: 1%;
-
-}
-
-p{
-    font-size: 15px;
-}
-
-.column1 {
-    flex: 50%;
-    padding:0px;
-    margin-right: -16%;
+body {
+    margin: 0;
   }
-
-  .column2 {
-    flex: 50%;
-    padding:0px;
-    margin-left: -16%;
+  
+  .header {
+    text-align: center;
+    padding: 32px;
   }
-
-  .gallery-item {
-    margin:0;
-    position: relative;
-}
-
-.row {
+  
+  .flex-container {
     display: flex;
     flex-wrap: wrap;
+    padding: 0 4px;
+    width: 70%;
+    margin:auto;
   }
-
-  .column1 .img-desc{
-    position: absolute;
-    z-index: 100;
-    top: 1em;
-    left:13em;
-    color:transparent;
-    transition: left 2s;
-  }
-
-  .column2 .img-desc{
-    display: inline;
-    position: absolute;
-    z-index: 100;
-    top: 1em;
-    right:13em;
-    color:transparent;
-    transition: right 2s;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .column1 .gallery-item:hover > .img-desc {
-
-        display: initial;
-        position: absolute;
-        z-index: 100;
-        top: 1em;
-        left:8em;
-        color:#cbcba9;
-    
-    }
-    
-    .column2 .gallery-item:hover > .img-desc{
-      display: inline;
-      position: absolute;
-      z-index: 100;
-      top: 1em;
-      right:8em;
-      color:#cbcba9;
-    }
-  }
-
   
-@media screen and (max-width: 600px) {
-.column1 {
-  flex: 100%;
-  max-width: 100%;
-  margin-right: 0%;
+  /* Create four equal columns that sits next to each other */
+  .column {
+    flex: 50%;
+    max-width: 50%;
+    padding: 0 4px;
+ 
+  }
   
+  .gallery-item img {
+    margin-top: 8px;
+    max-width: 99%;
+    display: block;
+  }
+
+.gallery-item {
+    position: relative;
+} 
+
+.movement-left .img-desc{
+    color: #cbcba9;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    width: fit-content;
+    letter-spacing: 7px;
+    margin: 0px;
+    transition:  ease-in-out 250ms;
 }
 
-.column2{
-    flex: 100%;
-    max-width: 100%;
-    margin-left: 0%;
+.movement-right .img-desc{
+    color: #cbcba9;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0px;
+    width: fit-content;
+    letter-spacing: 7px;
+    margin: 0px;
+    transition:  ease-in-out 250ms;
+}
+
+.movement-left .gallery-item:hover > .img-desc{
     
+    left:-10em;
+    max-width:10em;
+    text-align: right;
+    color: #cbcba9;
+}
+
+.movement-right .gallery-item:hover > .img-desc{
+    
+    right:-10em;
+    max-width:10em;
+    text-align: left;
+    color: #cbcba9;
+}
+
+@media screen and (max-width: 820px) {
+
+  .flex-container{
+    width: 88%;
+    margin: auto;
+   
+  }
+    .movement-right .gallery-item:hover > .img-desc{
+    
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        right:-2em;
+        min-height: 15px;
+        text-align: left;
+        color: #cbcba9;
+        padding: 0px; 
+        padding-top: 10px;
+    }
+
+    .movement-left .gallery-item:hover > .img-desc{
+    
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      left:-1.5em;
+      max-width:2em;
+      text-align: left;
+      color:#cbcba9;
   }
 
-  .column2 .img-desc, .column1 .img-desc{
-    display: inline;
-    position: absolute;
-    top: 1em;
-    left:9em;
-    right:17em;
-    color:#cbcba9;
-    margin:0;
-    transition: none;
-    pointer-events:none;
+}
+
+@media screen and (max-width: 623px) {
+
+    .movement-left .img-desc{
+      color: transparent;
+      padding: 10px;
+      position: absolute;
+      left: -10px;
+      top: 0px;
+      width: fit-content;
+      letter-spacing: 7px;
+      transition:  ease-in-out 250ms;
+  }
+  
+  .movement-left .gallery-item:hover > .img-desc{
     
-  }
-  }
+    left:0em;
+    max-width:10em; 
+    text-align: left;
+    color: #cbcba9;
+}
+
+
+.movement-right .img-desc{
+  color:transparent;
+  padding: 10px;
+  position: absolute;
+  left: -10px;
+  top: 0px;
+  width: fit-content;
+  text-align: left;
+  letter-spacing: 7px;
+  margin: 0px;
+  transition:  ease-in-out 250ms;
+}
+
+.movement-right .gallery-item:hover > .img-desc{
+
+left:0.5em;
+max-width:10em; 
+text-align: left;
+color: #cbcba9;
+}
+  
+
+.flex-container{
+        width: 98%;
+        margin: auto;
+}
+
+.column {
+      flex: 100%;
+      max-width: 100%;
+    }
+
+}
+
+  
+/* .about{
+  text-align: justify;
+  line-height: 1.5em;
+} */

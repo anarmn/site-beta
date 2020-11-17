@@ -1,84 +1,95 @@
-figure{
-    margin-block-end: 0em;
-    margin-block-start: 0em;
-    margin-inline-end: 0px;
-    margin-inline-start: 0px;
-}
-
-img {
+body {
+    margin: 0;  
     
-    max-width: 80%;
-    height: auto;
-    padding-bottom: 1%;
-
-}
-
-p{
-  font-size: 25px;
-}
-
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.column1{
-    flex: 50%;
-    padding:0px;
-    margin: 0;
-    /*margin-right: -16%;*/
   }
 
-  .column2 {
-    flex: 50%;
-    padding:0px;
-    margin:0;
-    /*margin-left: -16%;*/
+  p
+    {
+      display: block;
+      margin-block-start: 0em;
+      margin-block-end: 0em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
   }
-
-  /* .port-item {
-    margin:0;
-    position: relative;
-} */
-
-  port-item:hover{
-    opacity: 95%;
-  }
- 
-  .port-item .album-title{
-    z-index: 1;
-    right: 10px;
-    left: 0;
-    bottom: 10px;
   
+
+  /* img{
+    margin-right:0px;
+
+  } */
+  
+  /* .header {
+    text-align: center;
+    padding: 32px;
+  }
+   */
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    width: 70%;
+    margin:auto;
+  }
+  
+  .column {
+    flex: 50%;
+    max-width: 50%;
+    padding: 0 4px;
+    overflow: hidden;
+  }
+  
+  .port-item img {
+    margin-top: 8px;
+    max-width: 99%;
+    display: block;
+  }
+
+.port-item {
+    position: relative;
+} 
+
+.album-title{
+    /* background: rgba(0, 0, 0, 0.1); */
+  
+    
+    /* color: rgb(187, 187, 187); */
+    color:white;
+    padding: 10px 10px 5px 10px;
+    position: absolute;
+    max-width: 99%;
+    left: 0;
+    right: 0;
+    top: 0px;
+    text-align: left;
+    letter-spacing: 7px;
+    margin: 0px;
+    transition:  ease-in-out 250ms;
+    text-transform: uppercase;
+
 }
 
-/* @media screen and (max-width: 1000px){
-  .port-item .album-title{
-    position: absolute;
-    display: inline-block;
-    z-index: 1;
-    right: 10px;
-    left: 0;
-    bottom: 10px;
-    top: 0;
-    /* text-align: left; */
+.port-item:hover{
+    opacity: 98%;
+  }
 
+.port-item:hover > a .album-title{
+    letter-spacing: 10px;
+    color: black;
+    /* background-image: linear-gradient(to right,  rgba(37, 37, 37, 0.6), rgba(255,0,0,0)); */
 
- 
-/* 
-  @media screen and (max-width: 600px) {
-    .column1 {
-      flex: 100%;
-      max-width: 100%;
-      margin-right: 0%;
-      
-    }
-    
-    .column2{
-        flex: 100%;
-        max-width: 100%;
-        margin-left: 0%;
-        
-      }
-    } */
+}
+
+@media screen and (max-width: 600px) {
+
+    .flex-container{
+      width: 98%;
+      margin: auto;
+}
+
+.column {
+    flex: 100%;
+    max-width: 100%;
+  }
+
+}
+

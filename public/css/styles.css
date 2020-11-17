@@ -1,5 +1,14 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Slabo+13px&family=Ultra&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Permanent+Marker&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Roboto+Slab&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100&display=swap');
+
+
+
 
 /*@font-face {
     font-family: 'Baskerville Normal';
@@ -10,21 +19,21 @@
 
 *{
     box-sizing: border-box;
-    /*transition: all ease-in-out 250ms;*/
-    /* margin-left: 5%;
-    margin-right: 5%; */
+    transition: all ease-in-out 250ms;
+    font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 body{
     margin :0px;
     text-align: center;
-}
 
+}
 
 .name {
     font-size: 50px;
     margin-bottom: -5px;
     font-family: 'Permanent Marker';
+
 }
 
 .name:hover{
@@ -42,13 +51,15 @@ header {
 }
 
 nav ul {
+    align-items: center;
     margin:0;
     padding: 0;
     list-style: none;
+ 
 }
 
 nav li {
-    display: inline-block;
+  display: inline-block;
     margin: 1em;
    
 }
@@ -57,7 +68,7 @@ nav a {
     font-weight:900 ;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: .8rem;
+    font-size: 1rem;
     padding: .5em;
     color: #8c8c8c;
 }
@@ -67,9 +78,56 @@ nav a:focus {
     color: #cbcba9;
 }
 
+@media screen and (max-width: 600px) {
+
+    nav ul{
+       display: flex;
+       flex-wrap: wrap;
+       align-items: center;
+    }
+
+    nav li{
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .name {
+        font-size: 30px;
+    }
+
+    nav li{
+        margin: 0.5em;
+    }
+
+    nav a {
+        font-size: .9rem;
+    }
+
+
+
+}
   
 
   
+.unstyled-list {
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+    color: gray;
+  }
+  
+  
+  footer {
+   
+    background-color: #fff;
+    text-align: left;
+    padding: 1em 0;
+    width: 100%;
+    margin-top: 1em;
+  }
 
    
   
