@@ -111,7 +111,7 @@ body {
 
     .movement-left .img-desc{
       color: transparent;
-      padding: 10px;
+      padding: 15px 10px 10px 10px;
       position: absolute;
       left: -10px;
       top: 0px;
@@ -131,7 +131,7 @@ body {
 
 .movement-right .img-desc{
   color:transparent;
-  padding: 10px;
+  padding: 15px 10px 10px 10px;
   position: absolute;
   left: -10px;
   top: 0px;
