@@ -137,63 +137,50 @@
         const maxLeft = 11;
         const maxRight = 8;
 
-        function imageExists(src, successCallback) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("HEAD", src, true);
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                successCallback();
-                } 
-            };
-            xhr.send();
+        function checkIfImageExists(src, successCallback) {
+            const img = new Image();
+            img.onload = successCallback;
+            img.src = src;
         };
 
         function loadMoreImages() {
             const leftGalleryRow = document.getElementById("leftRow");
             const rightGalleryRow = document.getElementById("rightRow");
 
-            imageExists(
-                "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg",
-                function() {
-                        const leftImageDiv = document.createElement("div");
-                        leftImageDiv.className = "gallery-item";
-                        const leftNewImage = document.createElement("img");
+            if (nextImageIndexLeft + 1 <= maxLeft) {
+                const leftImageDiv = document.createElement("div");
+                leftImageDiv.className = "gallery-item";
+                const leftNewImage = document.createElement("img");
 
-                        leftNewImage.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
-                        leftNewImage.className = "image";
-                        const pWithDateForLeft = document.createElement("p");
-                        pWithDateForLeft.id = "home-left-" + (nextImageIndexLeft + 1);
-                        pWithDateForLeft.className = "img-desc";
-                        extractExifData(leftNewImage, "home-left-" + (nextImageIndexLeft + 1), handleExifData);
+                leftNewImage.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
+                leftNewImage.className = "image";
+                const pWithDateForLeft = document.createElement("p");
+                pWithDateForLeft.id = "home-left-" + (nextImageIndexLeft + 1);
+                pWithDateForLeft.className = "img-desc";
+                extractExifData(leftNewImage, "home-left-" + (nextImageIndexLeft + 1), handleExifData);
+                leftImageDiv.appendChild(leftNewImage);
+                leftImageDiv.appendChild(pWithDateForLeft);
+                leftGalleryRow.appendChild(leftImageDiv);
+                nextImageIndexLeft++;
+            }
 
-                        leftImageDiv.appendChild(leftNewImage);
-                        leftImageDiv.appendChild(pWithDateForLeft);
-                        leftGalleryRow.appendChild(leftImageDiv);
-                        nextImageIndexLeft++;
-                    }
-                );
+            if (nextImageIndexRight + 1 <= maxRight) {
+                const rightImageDiv = document.createElement("div");
+                rightImageDiv.className = "gallery-item";
+                const rightNewImage = document.createElement("img");
 
-            imageExists(
-                "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg",
-                function() {
-                        const rightImageDiv = document.createElement("div");
-                        rightImageDiv.className = "gallery-item";
-                        const rightNewImage = document.createElement("img");
+                rightNewImage.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
+                rightNewImage.className = "image";
+                const pWithDateForRight = document.createElement("p");
+                pWithDateForRight.id = "home-right-" + (nextImageIndexRight + 1);
+                pWithDateForRight.className = "img-desc";
+                extractExifData(rightNewImage, "home-right-" + (nextImageIndexRight + 1), handleExifData);
 
-                        rightNewImage.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
-                        rightNewImage.className = "image";
-                        const pWithDateForRight = document.createElement("p");
-                        pWithDateForRight.id = "home-right-" + (nextImageIndexRight + 1);
-                        pWithDateForRight.className = "img-desc";
-                        extractExifData(rightNewImage, "home-right-" + (nextImageIndexRight + 1), handleExifData);
-
-                        rightImageDiv.appendChild(rightNewImage);
-                        rightImageDiv.append(pWithDateForRight);
-                        rightGalleryRow.appendChild(rightImageDiv);
-                        nextImageIndexRight++;
-                }
-            );
+                rightImageDiv.appendChild(rightNewImage);
+                rightImageDiv.append(pWithDateForRight);
+                rightGalleryRow.appendChild(rightImageDiv);
+                nextImageIndexRight++;
+            }
         }
 
         window.addEventListener("scrollend", function() {
@@ -212,7 +199,7 @@
             // Calculate how far the user has scrolled from the top
             const scrollPosition = scrollTop + windowHeight;
             // Check if the user has scrolled to the bottom of the page
-            return scrollPosition >= documentHeight - 250;
+            return scrollPosition >= documentHeight - 300;
         }
 
         function formatDate(inputDate) {
