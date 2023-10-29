@@ -134,70 +134,85 @@
     <script>
         let nextImageIndexLeft = 2;
         let nextImageIndexRight = 2;
+        const maxLeft = 11;
+        const maxRight = 8;
+
+        function imageExists(src, successCallback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("HEAD", src, true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                successCallback();
+                } 
+            };
+            xhr.send();
+        };
+
         function loadMoreImages() {
             const leftGalleryRow = document.getElementById("leftRow");
             const rightGalleryRow = document.getElementById("rightRow");
 
-            const imgLeft = new Image();
-            imgLeft.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
+            imageExists(
+                "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg",
+                function() {
+                        const leftImageDiv = document.createElement("div");
+                        leftImageDiv.className = "gallery-item";
+                        const leftNewImage = document.createElement("img");
 
-            imgLeft.onload = () => {
-                const leftImageDiv = document.createElement("div");
-                leftImageDiv.className = "gallery-item";
-                const leftNewImage = document.createElement("img");
+                        leftNewImage.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
+                        leftNewImage.className = "image";
+                        const pWithDateForLeft = document.createElement("p");
+                        pWithDateForLeft.id = "home-left-" + (nextImageIndexLeft + 1);
+                        pWithDateForLeft.className = "img-desc";
+                        extractExifData(leftNewImage, "home-left-" + (nextImageIndexLeft + 1), handleExifData);
 
-                leftNewImage.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
-                leftNewImage.className = "image";
-                const pWithDateForLeft = document.createElement("p");
-                pWithDateForLeft.id = "home-left-" + (nextImageIndexLeft + 1);
-                pWithDateForLeft.className = "img-desc";
-                extractExifData(leftNewImage, "home-left-" + (nextImageIndexLeft + 1), handleExifData);
+                        leftImageDiv.appendChild(leftNewImage);
+                        leftImageDiv.appendChild(pWithDateForLeft);
+                        leftGalleryRow.appendChild(leftImageDiv);
+                        nextImageIndexLeft++;
+                    }
+                );
 
-                leftImageDiv.appendChild(leftNewImage);
-                leftImageDiv.appendChild(pWithDateForLeft);
-                leftGalleryRow.appendChild(leftImageDiv);
-                nextImageIndexLeft++;
-            }
+            imageExists(
+                "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg",
+                function() {
+                        const rightImageDiv = document.createElement("div");
+                        rightImageDiv.className = "gallery-item";
+                        const rightNewImage = document.createElement("img");
 
-            const imgRight = new Image();
-            imgRight.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
+                        rightNewImage.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
+                        rightNewImage.className = "image";
+                        const pWithDateForRight = document.createElement("p");
+                        pWithDateForRight.id = "home-right-" + (nextImageIndexRight + 1);
+                        pWithDateForRight.className = "img-desc";
+                        extractExifData(rightNewImage, "home-right-" + (nextImageIndexRight + 1), handleExifData);
 
-            imgRight.onload = () => {
-                const rightImageDiv = document.createElement("div");
-                rightImageDiv.className = "gallery-item";
-                const rightNewImage = document.createElement("img");
-
-                rightNewImage.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
-                rightNewImage.className = "image";
-                const pWithDateForRight = document.createElement("p");
-                pWithDateForRight.id = "home-right-" + (nextImageIndexRight + 1);
-                pWithDateForRight.className = "img-desc";
-                extractExifData(rightNewImage, "home-right-" + (nextImageIndexRight + 1), handleExifData);
-
-                rightImageDiv.appendChild(rightNewImage);
-                rightImageDiv.append(pWithDateForRight);
-                rightGalleryRow.appendChild(rightImageDiv);
-                nextImageIndexRight++;
-            }
+                        rightImageDiv.appendChild(rightNewImage);
+                        rightImageDiv.append(pWithDateForRight);
+                        rightGalleryRow.appendChild(rightImageDiv);
+                        nextImageIndexRight++;
+                }
+            );
         }
 
         window.addEventListener("scrollend", function() {
-            if (isScrolledToBottom()) {
+            if (isScrolledToBottom() && ((nextImageIndexRight + 1 <= maxRight) || (nextImageIndexLeft + 1 <= maxLeft))) {
                 loadMoreImages();
             }
         });
 
         function isScrolledToBottom() {
             // Calculate the current scroll position
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             // Calculate the total height of the document
-            var documentHeight = document.documentElement.scrollHeight;
+            const documentHeight = document.documentElement.scrollHeight;
             // Calculate the height of the viewport
-            var windowHeight = window.innerHeight;
+            const windowHeight = window.innerHeight;
             // Calculate how far the user has scrolled from the top
-            var scrollPosition = scrollTop + windowHeight;
+            const scrollPosition = scrollTop + windowHeight;
             // Check if the user has scrolled to the bottom of the page
-            return scrollPosition >= documentHeight - 200;
+            return scrollPosition >= documentHeight - 250;
         }
 
         function formatDate(inputDate) {
