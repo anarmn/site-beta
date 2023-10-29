@@ -22,21 +22,21 @@
         </nav>
     </header>
 
-    <div class="flex-container">
-        <div class="column movement-left">
+    <div id="galleryContainer" class="flex-container">
+        <div id="leftRow" class="column movement-left">
 
                 <div class="gallery-item">
-                    <img src="img/portfolio/cluj-walk/street-behind.jpeg" alt="gallery item">
-                    <p class="img-desc">January 21 2021</p>
+                    <img src="img/home/home-left-1.jpeg" alt="gallery item">
+                    <p class="img-desc">January 21, 2021</p>
                 </div>
             
 
                 <div class="gallery-item">
-                    <img src="img/portfolio/nature/v1.jpeg" alt="gallery item">
-                    <p class="img-desc">July 7 2020</p>
+                    <img src="img/home/home-left-2.jpeg" alt="gallery item">
+                    <p class="img-desc">July 7, 2020</p>
                 </div>
             
-                <div class="gallery-item">
+                <!-- <div class="gallery-item">
                     <img src="img/portfolio/bicaz/best.jpeg" alt="gallery item">
                     <p class="img-desc">August 16 2020</p>
                 </div>
@@ -46,10 +46,10 @@
                 <div class="gallery-item">
                     <img src="img/portfolio/dacia/1.jpeg" alt="gallery item">
                     <p class="img-desc">August 19 2020</p>
-                </div>
+                </div> -->
 
 
-            <div class="gallery-item">
+            <!-- <div class="gallery-item">
                 <img src="img/home/3.jpeg" alt="gallery item">
                 <p class="img-desc">July 7 2020</p>
             </div>
@@ -86,20 +86,20 @@
                 <img src="img/portfolio/azuga/a5.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
             </div>
-        
+         -->
         </div>
-        <div class="column movement-right">
+        <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/west/g3.jpeg" alt="gallery item">
-                <p class="img-desc">August 26 2019</p>
+                <img src="img/home/home-right-1.jpeg" alt="gallery item">
+                <p class="img-desc">August 26, 2019</p>
             </div>
 
              <div class="gallery-item">
-                <img src="img/portfolio/cotroceni/2.jpeg" alt="gallery item">
-                <p class="img-desc">November 2 2020</p>
+                <img src="img/home/home-right-2.jpeg" alt="gallery item">
+                <p class="img-desc">November 2, 2020</p>
              </div>
 
-            <div class="gallery-item">
+            <!-- <div class="gallery-item">
                 <img src="img/portfolio/raluca/r1.jpeg" alt="gallery item">
                 <p class="img-desc">November 12 2019</p>
             </div>
@@ -111,7 +111,7 @@
 
             <div class="gallery-item">
                 <img src="img/portfolio/autumn-sun/sun.jpeg" alt="gallery item">
-                <p class="img-desc">September 27 2020</p>
+                <p class="img-desc">Simg/portfolio/autumn-sun/sun.jpeg0</p>
             </div>
 
             <div class="gallery-item">
@@ -127,8 +127,102 @@
             <div class="gallery-item">
                 <img src="img/portfolio/mare-vara/m10.jpeg" alt="gallery item">
                 <p class="img-desc">August 17 2019</p>
-            </div>   
+            </div>    -->
         </div>    
     </div>  
+    <script src="exif-js-master/exif.js"></script>
+    <script>
+        let nextImageIndex = 2;
+        function loadMoreImages() {
+            const leftGalleryRow = document.getElementById("leftRow");
+            const rightGalleryRow = document.getElementById("rightRow");
+
+            const leftImageDiv = document.createElement("div");
+            leftImageDiv.className = "gallery-item";
+            const leftNewImage = document.createElement("img");
+
+            const rightImageDiv = document.createElement("div");
+            rightImageDiv.className = "gallery-item";
+            const rightNewImage = document.createElement("img");
+     
+            leftNewImage.src = "img/home/home-left-" + (nextImageIndex + 1) + ".jpeg";
+            leftNewImage.className = "image";
+            const pWithDateForLeft = document.createElement("p");
+            pWithDateForLeft.id = "home-left-" + (nextImageIndex + 1);
+            pWithDateForLeft.className = "img-desc";
+            extractExifData(leftNewImage, "home-left-" + (nextImageIndex + 1), handleExifData);
+
+            leftImageDiv.appendChild(leftNewImage);
+            leftImageDiv.appendChild(pWithDateForLeft);
+            leftGalleryRow.appendChild(leftImageDiv);
+
+            rightNewImage.src = "img/home/home-right-" + (nextImageIndex + 1) + ".jpeg";
+            rightNewImage.className = "image";
+            const pWithDateForRight = document.createElement("p");
+            pWithDateForRight.id = "home-right-" + (nextImageIndex + 1);
+            pWithDateForRight.className = "img-desc";
+            extractExifData(rightNewImage, "home-right-" + (nextImageIndex + 1), handleExifData);
+
+
+            rightImageDiv.appendChild(rightNewImage);
+            rightImageDiv.append(pWithDateForRight);
+            rightGalleryRow.appendChild(rightImageDiv);
+
+            nextImageIndex++;
+        }
+
+        window.addEventListener("scroll", function() {
+            if (isScrolledToBottom()) {
+                loadMoreImages();
+            }
+        });
+
+        function isScrolledToBottom() {
+            // Calculate the current scroll position
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            // Calculate the total height of the document
+            var documentHeight = document.documentElement.scrollHeight;
+            // Calculate the height of the viewport
+            var windowHeight = window.innerHeight;
+            // Calculate how far the user has scrolled from the top
+            var scrollPosition = scrollTop + windowHeight;
+            // Check if the user has scrolled to the bottom of the page
+            return scrollPosition >= documentHeight - 250;
+        }
+
+        function formatDate(inputDate) {
+            const [datePart, timePart] = inputDate.split(' ');
+            const [year, month, day] = datePart.split(':');
+
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            const newDate = new Date(year, month - 1, day);
+            const monthName = monthNames[newDate.getMonth()];
+            const yearPart = year;
+            const formattedDate = `${monthName} ${day}, ${yearPart}`;
+            return formattedDate;
+        }
+
+        function handleExifData(dateTimeOriginal, pId) {
+            const p = document.getElementById(pId);
+            if (dateTimeOriginal) {
+                p.innerHTML = formatDate(dateTimeOriginal);
+            }
+        }
+
+        function extractExifData(image, pId, callback) {
+            image.onload = function() {
+                EXIF.getData(image, function () {
+                    const dateTimeOriginal = EXIF.getTag(this, "DateTimeOriginal");
+                    if (dateTimeOriginal) {
+                    callback(dateTimeOriginal, pId);
+                    } 
+                })
+            }
+        }
+    </script>
 </body>
 </html>
