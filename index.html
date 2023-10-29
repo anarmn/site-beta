@@ -132,46 +132,56 @@
     </div>  
     <script src="exif-js-master/exif.js"></script>
     <script>
-        let nextImageIndex = 2;
+        let nextImageIndexLeft = 2;
+        let nextImageIndexRight = 2;
         function loadMoreImages() {
             const leftGalleryRow = document.getElementById("leftRow");
             const rightGalleryRow = document.getElementById("rightRow");
 
-            const leftImageDiv = document.createElement("div");
-            leftImageDiv.className = "gallery-item";
-            const leftNewImage = document.createElement("img");
+            const imgLeft = new Image();
+            imgLeft.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
 
-            const rightImageDiv = document.createElement("div");
-            rightImageDiv.className = "gallery-item";
-            const rightNewImage = document.createElement("img");
-     
-            leftNewImage.src = "img/home/home-left-" + (nextImageIndex + 1) + ".jpeg";
-            leftNewImage.className = "image";
-            const pWithDateForLeft = document.createElement("p");
-            pWithDateForLeft.id = "home-left-" + (nextImageIndex + 1);
-            pWithDateForLeft.className = "img-desc";
-            extractExifData(leftNewImage, "home-left-" + (nextImageIndex + 1), handleExifData);
+            imgLeft.onload = () => {
+                const leftImageDiv = document.createElement("div");
+                leftImageDiv.className = "gallery-item";
+                const leftNewImage = document.createElement("img");
 
-            leftImageDiv.appendChild(leftNewImage);
-            leftImageDiv.appendChild(pWithDateForLeft);
-            leftGalleryRow.appendChild(leftImageDiv);
+                leftNewImage.src = "img/home/home-left-" + (nextImageIndexLeft + 1) + ".jpeg";
+                leftNewImage.className = "image";
+                const pWithDateForLeft = document.createElement("p");
+                pWithDateForLeft.id = "home-left-" + (nextImageIndexLeft + 1);
+                pWithDateForLeft.className = "img-desc";
+                extractExifData(leftNewImage, "home-left-" + (nextImageIndexLeft + 1), handleExifData);
 
-            rightNewImage.src = "img/home/home-right-" + (nextImageIndex + 1) + ".jpeg";
-            rightNewImage.className = "image";
-            const pWithDateForRight = document.createElement("p");
-            pWithDateForRight.id = "home-right-" + (nextImageIndex + 1);
-            pWithDateForRight.className = "img-desc";
-            extractExifData(rightNewImage, "home-right-" + (nextImageIndex + 1), handleExifData);
+                leftImageDiv.appendChild(leftNewImage);
+                leftImageDiv.appendChild(pWithDateForLeft);
+                leftGalleryRow.appendChild(leftImageDiv);
+                nextImageIndexLeft++;
+            }
 
+            const imgRight = new Image();
+            imgRight.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
 
-            rightImageDiv.appendChild(rightNewImage);
-            rightImageDiv.append(pWithDateForRight);
-            rightGalleryRow.appendChild(rightImageDiv);
+            imgRight.onload = () => {
+                const rightImageDiv = document.createElement("div");
+                rightImageDiv.className = "gallery-item";
+                const rightNewImage = document.createElement("img");
 
-            nextImageIndex++;
+                rightNewImage.src = "img/home/home-right-" + (nextImageIndexRight + 1) + ".jpeg";
+                rightNewImage.className = "image";
+                const pWithDateForRight = document.createElement("p");
+                pWithDateForRight.id = "home-right-" + (nextImageIndexRight + 1);
+                pWithDateForRight.className = "img-desc";
+                extractExifData(rightNewImage, "home-right-" + (nextImageIndexRight + 1), handleExifData);
+
+                rightImageDiv.appendChild(rightNewImage);
+                rightImageDiv.append(pWithDateForRight);
+                rightGalleryRow.appendChild(rightImageDiv);
+                nextImageIndexRight++;
+            }
         }
 
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scrollend", function() {
             if (isScrolledToBottom()) {
                 loadMoreImages();
             }
@@ -187,7 +197,7 @@
             // Calculate how far the user has scrolled from the top
             var scrollPosition = scrollTop + windowHeight;
             // Check if the user has scrolled to the bottom of the page
-            return scrollPosition >= documentHeight - 250;
+            return scrollPosition >= documentHeight - 200;
         }
 
         function formatDate(inputDate) {
