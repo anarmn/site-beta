@@ -145,7 +145,7 @@
         function extractExifData(image, pId, callback) {
             image.onload = function() {
                 EXIF.getData(image, function () {
-                    const dateTimeOriginal = EXIF.getTag(this, "DateTime");
+                    const dateTimeOriginal = EXIF.getTag(this, "DateTimeOriginal");
                     if (dateTimeOriginal) {
                     callback(dateTimeOriginal, pId);
                     } 
