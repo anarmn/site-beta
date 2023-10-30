@@ -145,10 +145,11 @@
         function extractExifData(image, pId, callback) {
             image.onload = function() {
                 EXIF.getData(image, function () {
-                    const dateTimeOriginal = EXIF.getTag(this, "DateTimeOriginal");
-                    if (dateTimeOriginal) {
-                    callback(dateTimeOriginal, pId);
-                    } 
+                    if (EXIF.getTag(this, "DateTimeOriginal")) {
+                        callback(EXIF.getTag(this, "DateTimeOriginal"), pId);
+                    } else if (EXIF.getTag(this, "DateTime")) {
+                        callback(EXIF.getTag(this, "DateTime"), pId);
+                    }
                 })
             }
         }
