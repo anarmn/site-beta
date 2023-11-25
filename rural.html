@@ -22,118 +22,136 @@
     </header>
 
     <div class="flex-container">
-        <div class="column movement-left">
+        <div id="leftRow" class="column movement-left">
 
             <div class="gallery-item">
-                <img src="img/portfolio/fog/lonely.jpeg" alt="gallery item">
+                <img src="img/portfolio/fog/fog-left-1.jpeg" alt="gallery item">
                 <p class="img-desc">November 14 2020</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/fog/cow1.jpeg" alt="gallery item">
+                <img src="img/portfolio/fog/fog-left-2.jpeg" alt="gallery item">
                 <p class="img-desc">November 14 2020</p>
             </div>
-         
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/cow2.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-       
-          
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/fantana.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/village.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/macese3.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/fog.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/flowe.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/tree.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/church.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-
         </div>
 
-        <div class="column movement-right">
+        <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/fog/tractor.jpeg" alt="gallery item">
+                <img src="img/portfolio/fog/fog-right-1.jpeg" alt="gallery item">
                 <p class="img-desc">November 14 2020</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/fog/house.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/horsesport.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/single.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/horsesfar.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/mom.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-           
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/scaieti.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/macese1.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/macese2.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/fog/far.jpeg" alt="gallery item">
+                <img src="img/portfolio/fog/fog-right-2.jpeg" alt="gallery item">
                 <p class="img-desc">November 14 2020</p>
             </div>
         </div>    
     </div> 
+    <script src="exif-js-master/exif.js"></script>
+    <script>
+        let nextImageIndexLeft = 2;
+        let nextImageIndexRight = 2;
+        const max = 10;
+
+        function checkIfImageExists(src, successCallback) {
+            const img = new Image();
+            img.onload = successCallback;
+            img.src = src;
+        };
+
+        function loadMoreImages() {
+            const leftGalleryRow = document.getElementById("leftRow");
+            const rightGalleryRow = document.getElementById("rightRow");
+
+            if (nextImageIndexLeft + 1 <= max) {
+                const leftImageDiv = document.createElement("div");
+                leftImageDiv.className = "gallery-item";
+                const leftNewImage = document.createElement("img");
+
+                leftNewImage.src = "img/portfolio/fog/fog-left-" + (nextImageIndexLeft + 1) + ".jpeg";
+                leftNewImage.className = "image";
+                const pWithDateForLeft = document.createElement("p");
+                pWithDateForLeft.id = "fog-left-" + (nextImageIndexLeft + 1);
+                pWithDateForLeft.className = "img-desc";
+                extractExifData(leftNewImage, "fog-left-" + (nextImageIndexLeft + 1), handleExifData);
+                leftImageDiv.appendChild(leftNewImage);
+                leftImageDiv.appendChild(pWithDateForLeft);
+                leftGalleryRow.appendChild(leftImageDiv);
+                nextImageIndexLeft++;
+            }
+
+            if (nextImageIndexRight + 1 <= max) {
+                const rightImageDiv = document.createElement("div");
+                rightImageDiv.className = "gallery-item";
+                const rightNewImage = document.createElement("img");
+
+                rightNewImage.src = "img/portfolio/fog/fog-right-" + (nextImageIndexRight + 1) + ".jpeg";
+                rightNewImage.className = "image";
+                const pWithDateForRight = document.createElement("p");
+                pWithDateForRight.id = "fog-right-" + (nextImageIndexRight + 1);
+                pWithDateForRight.className = "img-desc";
+                extractExifData(rightNewImage, "fog-right-" + (nextImageIndexRight + 1), handleExifData);
+
+                rightImageDiv.appendChild(rightNewImage);
+                rightImageDiv.append(pWithDateForRight);
+                rightGalleryRow.appendChild(rightImageDiv);
+                nextImageIndexRight++;
+            }
+        }
+
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((nextImageIndexRight + 1 <= max) || (nextImageIndexLeft + 1 <= max))) {
+                loadMoreImages();
+            }
+        });
+
+        function isScrolledToBottom() {
+            // Calculate the current scroll position
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            // Calculate the total height of the document
+            const documentHeight = document.documentElement.scrollHeight;
+            // Calculate the height of the viewport
+            const windowHeight = window.innerHeight;
+            // Calculate how far the user has scrolled from the top
+            const scrollPosition = scrollTop + windowHeight;
+            // Check if the user has scrolled to the bottom of the page
+            return scrollPosition >= documentHeight - 350;
+        }
+
+        function formatDate(inputDate) {
+            const [datePart, timePart] = inputDate.split(' ');
+            const [year, month, day] = datePart.split(':');
+
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            const newDate = new Date(year, month - 1, day);
+            const monthName = monthNames[newDate.getMonth()];
+            const yearPart = year;
+            const formattedDate = `${monthName} ${day}, ${yearPart}`;
+            return formattedDate;
+        }
+
+        function handleExifData(dateTimeOriginal, pId) {
+            const p = document.getElementById(pId);
+            if (dateTimeOriginal) {
+                p.innerHTML = formatDate(dateTimeOriginal);
+            }
+        }
+
+        function extractExifData(image, pId, callback) {
+            image.onload = function() {
+                EXIF.getData(image, function () {
+                    if (EXIF.getTag(this, "DateTimeOriginal")) {
+                        callback(EXIF.getTag(this, "DateTimeOriginal"), pId);
+                    } else if (EXIF.getTag(this, "DateTime")) {
+                        callback(EXIF.getTag(this, "DateTime"), pId);
+                    }
+                })
+            }
+        }
+    </script>
 </body>
 </html>
