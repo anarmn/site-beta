@@ -71,7 +71,8 @@
                 const pWithDateForLeft = document.createElement("p");
                 pWithDateForLeft.id = "cluj-walk-left-" + (nextImageIndexLeft + 1);
                 pWithDateForLeft.className = "img-desc";
-                extractExifData(leftNewImage, "cluj-walk-left-" + (nextImageIndexLeft + 1), handleExifData);
+                //extractExifData(leftNewImage, "cluj-walk-left-" + (nextImageIndexLeft + 1), handleExifData);
+                extractTitleExifData(leftNewImage, "cluj-walk-left-" + (nextImageIndexLeft + 1), handleExifData);
                 leftImageDiv.appendChild(leftNewImage);
                 leftImageDiv.appendChild(pWithDateForLeft);
                 leftGalleryRow.appendChild(leftImageDiv);
@@ -146,6 +147,19 @@
                         callback(EXIF.getTag(this, "DateTimeOriginal"), pId);
                     } else if (EXIF.getTag(this, "DateTime")) {
                         callback(EXIF.getTag(this, "DateTime"), pId);
+                    }
+                })
+            }
+        }
+
+        function extractTitleExifData(image, pId, callback) {
+            image.onload = function() {
+                EXIF.getData(image, function () {
+                    console.log(this)
+                    if (EXIF.getTag(this, "Title")) {
+                        callback(EXIF.getTag(this, "Title"), pId);
+                    } else if (EXIF.getTag(this, "DateTimeOriginal")) {
+                        callback(EXIF.getTag(this, "DateTimeOriginal"), pId);
                     }
                 })
             }
