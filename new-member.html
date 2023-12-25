@@ -22,68 +22,53 @@
     </header>
 
     <div class="flex-container">
-        <div class="column movement-left">
-
+        <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/portfolio/family/5.jpeg" alt="gallery item">
+                <img src="img/portfolio/family/left-1.jpeg" alt="gallery item">
                 <p class="img-desc">June 11 2020</p>
             </div>
-
-
             <div class="gallery-item">
-                <img src="img/portfolio/family/labute.jpeg" alt="gallery item">
+                <img src="img/portfolio/family/left-2.jpeg" alt="gallery item">
                 <p class="img-desc">June 11 2020</p>
             </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/family/4.jpeg" alt="gallery item">
-                <p class="img-desc">June 11 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/family/mami.jpeg" alt="gallery item">
-                <p class="img-desc">June 11 2020</p>
-            </div>
-    
-            <div class="gallery-item">
-                <img src="img/portfolio/family/stuchi.jpeg" alt="gallery item">
-                <p class="img-desc">June 11 2020</p>
-            </div>
-
-            
-            <div class="gallery-item">
-                <img src="img/portfolio/family/stuchi2.jpeg" alt="gallery item">
-                <p class="img-desc">June 11 2020</p>
-            </div>
-    
-    
         </div>
-
-       
-        <div class="column movement-right">
-
+        <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/family/2.jpeg" alt="gallery item">
+                <img src="img/portfolio/family/right-1.jpeg" alt="gallery item">
                 <p class="img-desc">June 11 2020</p>
             </div>
-
             <div class="gallery-item">
-                <img src="img/portfolio/family/mana.jpeg" alt="gallery item">
+                <img src="img/portfolio/family/right-2.jpeg" alt="gallery item">
                 <p class="img-desc">June 11 2020</p>
             </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/family/6.jpeg" alt="gallery item">
-                <p class="img-desc">June 11 2020</p>
-            </div>
-
-            
-            <div class="gallery-item">
-                <img src="img/portfolio/family/7.jpeg" alt="gallery item">
-                <p class="img-desc">June 11 2020</p>
-            </div>
- 
         </div>    
     </div> 
+    <script src="exif-js-master/exif.js"></script>
+    <script src="./utils.js"></script>
+    <script>
+        let nextImageIndexLeft = 3;
+        let nextImageIndexRight = 3;
+        const maxRight = 4;
+        const maxLeft = 6;
+
+        function loadMoreImages() {
+            const leftGalleryRow = document.getElementById("leftRow");
+            const rightGalleryRow = document.getElementById("rightRow");
+            if (nextImageIndexLeft <= maxLeft) {
+                appendImage("family", "left", nextImageIndexLeft, leftGalleryRow);
+                nextImageIndexLeft++;
+            }
+            if (nextImageIndexRight <= maxRight) {
+                appendImage("family", "right", nextImageIndexRight, rightGalleryRow);
+                nextImageIndexRight++;
+            }
+        }
+
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+                loadMoreImages();
+            }
+        });
+    </script>
 </body>
 </html>

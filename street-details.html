@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rural</title>
+    <title>Street details</title>
     <link rel="stylesheet" href="./css/styles.css" type="text/css">
     <link rel="stylesheet" href="./css/index.css" type="text/css">
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
@@ -24,31 +24,32 @@
     <div class="flex-container">
         <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/portfolio/fog/fog-left-1.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
+                <img src="img/portfolio/cluj-walk/cluj-walk-left-1.jpeg" alt="gallery item">
+                <p class="img-desc">January 21 2021</p>
             </div>
+
             <div class="gallery-item">
-                <img src="img/portfolio/fog/fog-left-2.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
+                <img src="img/portfolio/cluj-walk/cluj-walk-left-2.jpeg" alt="gallery item">
+                <p class="img-desc">January 21 2021</p>
             </div>
         </div>
         <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/fog/fog-right-1.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
+                <img src="img/portfolio/cluj-walk/cluj-walk-right-1.jpeg" alt="gallery item">
+                <p class="img-desc">January 21 2021</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/fog/fog-right-2.jpeg" alt="gallery item">
-                <p class="img-desc">November 14 2020</p>
+                <img src="img/portfolio/cluj-walk/cluj-walk-right-2.jpeg" alt="gallery item">
+                <p class="img-desc">January 21 2021</p>
             </div>
-        </div>    
+        </div>
     </div> 
     <script src="exif-js-master/exif.js"></script>
     <script>
         let nextImageIndexLeft = 2;
         let nextImageIndexRight = 2;
-        const max = 10;
+        const max = 6;
 
         function checkIfImageExists(src, successCallback) {
             const img = new Image();
@@ -65,12 +66,12 @@
                 leftImageDiv.className = "gallery-item";
                 const leftNewImage = document.createElement("img");
 
-                leftNewImage.src = "img/portfolio/fog/fog-left-" + (nextImageIndexLeft + 1) + ".jpeg";
+                leftNewImage.src = "img/portfolio/cluj-walk/cluj-walk-left-" + (nextImageIndexLeft + 1) + ".jpeg";
                 leftNewImage.className = "image";
                 const pWithDateForLeft = document.createElement("p");
-                pWithDateForLeft.id = "fog-left-" + (nextImageIndexLeft + 1);
+                pWithDateForLeft.id = "cluj-walk-left-" + (nextImageIndexLeft + 1);
                 pWithDateForLeft.className = "img-desc";
-                extractExifData(leftNewImage, "fog-left-" + (nextImageIndexLeft + 1), handleExifData);
+                extractExifData(leftNewImage, "cluj-walk-left-" + (nextImageIndexLeft + 1), handleExifData);
                 leftImageDiv.appendChild(leftNewImage);
                 leftImageDiv.appendChild(pWithDateForLeft);
                 leftGalleryRow.appendChild(leftImageDiv);
@@ -82,12 +83,12 @@
                 rightImageDiv.className = "gallery-item";
                 const rightNewImage = document.createElement("img");
 
-                rightNewImage.src = "img/portfolio/fog/fog-right-" + (nextImageIndexRight + 1) + ".jpeg";
+                rightNewImage.src = "img/portfolio/cluj-walk/cluj-walk-right-" + (nextImageIndexRight + 1) + ".jpeg";
                 rightNewImage.className = "image";
                 const pWithDateForRight = document.createElement("p");
-                pWithDateForRight.id = "fog-right-" + (nextImageIndexRight + 1);
+                pWithDateForRight.id = "cluj-walk-right-" + (nextImageIndexRight + 1);
                 pWithDateForRight.className = "img-desc";
-                extractExifData(rightNewImage, "fog-right-" + (nextImageIndexRight + 1), handleExifData);
+                extractExifData(rightNewImage, "cluj-walk-right-" + (nextImageIndexRight + 1), handleExifData);
 
                 rightImageDiv.appendChild(rightNewImage);
                 rightImageDiv.append(pWithDateForRight);

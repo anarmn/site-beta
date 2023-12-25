@@ -22,96 +22,53 @@
     </header>
 
     <div class="flex-container">
-        <div class="column movement-left">
-
+        <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/wings.jpeg" alt="gallery item">
+                <img src="img/portfolio/autoportraits/left-1.jpeg" alt="gallery item">
                 <p class="img-desc">August 25 2020</p>
             </div>
-        
-         
-                  
             <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/glass.jpeg" alt="gallery item">
+                <img src="img/portfolio/autoportraits/left-2.jpeg" alt="gallery item">
                 <p class="img-desc">June 23 2020</p>
             </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/table.jpeg" alt="gallery item">
-                <p class="img-desc">June 23 2020</p>
-            </div>
-
- 
-
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/ochi.jpeg" alt="gallery item">
-                <p class="img-desc">April 4 2020</p>
-            </div>
-
-
-             
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/vin.jpeg" alt="gallery item">
-                <p class="img-desc">September 8 2020</p>
-            </div>
-            
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/chains.jpeg" alt="gallery item">
-                <p class="img-desc">June 23 2020</p>
-            </div>
-
-
-         
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/flower.jpeg" alt="gallery item">
-                <p class="img-desc">June 7 2020</p>
-            </div>
-
-
-            
-
-           
         </div>
-
-        <div class="column movement-right">
-            
+        <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/sacou2.jpeg" alt="gallery item">
+                <img src="img/portfolio/autoportraits/right-1.jpeg" alt="gallery item">
                 <p class="img-desc">April 4 2020</p>
             </div>
-
-           
-
             <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/h.jpeg" alt="gallery item">
+                <img src="img/portfolio/autoportraits/right-2.jpeg" alt="gallery item">
                 <p class="img-desc">April 8 2020</p>
             </div>
-
-
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/hand.jpeg" alt="gallery item">
-                <p class="img-desc">April 4 2020</p>
-            </div>
-            
-
-
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/side.jpeg" alt="gallery item">
-                <p class="img-desc">August 25 2020</p>
-            </div>
-
-            
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/shooting.jpeg" alt="gallery item">
-                <p class="img-desc">April 4 2020</p>
-            </div>
-
-
-            <div class="gallery-item">
-                <img src="img/portfolio/autoportraits/bw.jpeg" alt="gallery item">
-                <p class="img-desc">June 23 2020</p>
-            </div>
         </div>    
-    </div> 
+    </div>
+    <script src="exif-js-master/exif.js"></script>
+    <script src="./utils.js"></script>
+    <script>
+        let nextImageIndexLeft = 3;
+        let nextImageIndexRight = 3;
+        const maxRight = 6;
+        const maxLeft = 7;
+
+        function loadMoreImages() {
+            const leftGalleryRow = document.getElementById("leftRow");
+            const rightGalleryRow = document.getElementById("rightRow");
+            if (nextImageIndexLeft <= maxLeft) {
+                appendImage("autoportraits", "left", nextImageIndexLeft, leftGalleryRow);
+                nextImageIndexLeft++;
+            }
+            if (nextImageIndexRight <= maxRight) {
+                appendImage("autoportraits", "right", nextImageIndexRight, rightGalleryRow);
+                nextImageIndexRight++;
+            }
+        }
+
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+                loadMoreImages();
+            }
+        });
+    </script> 
 </body>
 </html>

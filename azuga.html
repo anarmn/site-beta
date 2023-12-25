@@ -22,54 +22,56 @@
     </header>
 
     <div class="flex-container">
-        <div class="column movement-left">
-
+        <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/portfolio/azuga/a5.jpeg" alt="gallery item">
+                <img src="img/portfolio/azuga/left-1.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/azuga/a4.jpeg" alt="gallery item">
+                <img src="img/portfolio/azuga/left-2.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
             </div>
-            <div class="gallery-item">
-                <img src="img/portfolio/azuga/a9.jpeg" alt="gallery item">
-                <p class="img-desc">August 22 2020</p>
-            </div>
-            <div class="gallery-item">
-                <img src="img/portfolio/azuga/a3.jpeg" alt="gallery item">
-                <p class="img-desc">August 22 2020</p>
-            </div>
-        
-
         </div>
 
-        <div class="column movement-right">
+        <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/azuga/a7.jpeg" alt="gallery item">
+                <img src="img/portfolio/azuga/right-1.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/azuga/a6.jpeg" alt="gallery item">
+                <img src="img/portfolio/azuga/right-2.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/azuga/a8.jpeg" alt="gallery item">
-                <p class="img-desc">August 22 2020</p>
-            </div>
-            <div class="gallery-item">
-                <img src="img/portfolio/azuga/a2.jpeg" alt="gallery item">
-                <p class="img-desc">August 21 2020</p>
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/portfolio/azuga/a1.jpeg" alt="gallery item">
-                <p class="img-desc">August 21 2020</p>
             </div>
         </div>    
     </div> 
+    <script src="exif-js-master/exif.js"></script>
+    <script src="./utils.js"></script>
+    <script>
+        let nextImageIndexLeft = 3;
+        let nextImageIndexRight = 3;
+        const maxLeft = 4;
+        const maxRight = 5;
+
+        function loadMoreImages() {
+            const leftGalleryRow = document.getElementById("leftRow");
+            const rightGalleryRow = document.getElementById("rightRow");
+            if (nextImageIndexLeft <= maxLeft) {
+                appendImage("azuga", "left", nextImageIndexLeft, leftGalleryRow);
+                nextImageIndexLeft++;
+            }
+            if (nextImageIndexRight <= maxRight) {
+                appendImage("azuga", "right", nextImageIndexRight, rightGalleryRow);
+                nextImageIndexRight++;
+            }
+        }
+
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+                loadMoreImages();
+            }
+        });
+    </script>
 </body>
 </html>

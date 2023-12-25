@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bicaz</title>
+    <title>Aniversary affair</title>
     <link rel="stylesheet" href="./css/styles.css" type="text/css">
     <link rel="stylesheet" href="./css/index.css" type="text/css">
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
@@ -24,50 +24,50 @@
     <div class="flex-container">
         <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/portfolio/bicaz/left-1.jpeg" alt="gallery item">
-                <p class="img-desc">August 16 2020</p>
+                <img src="img/portfolio/aniversary-affair/left-1.jpeg" alt="gallery item">
+                <p class="img-desc">February 11 2020</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/bicaz/left-2.jpeg" alt="gallery item">
-                <p class="img-desc">August 16 2020</p>
+                <img src="img/portfolio/aniversary-affair/left-2.jpeg" alt="gallery item">
+                <p class="img-desc">February 11 2020</p>
             </div>
         </div>
 
         <div id="rightRow" class="column movement-right">
             <div class="gallery-item">
-                <img src="img/portfolio/bicaz/right-1.jpeg" alt="gallery item">
-                <p class="img-desc">August 16 2020</p>
-            </div>            
+                <img src="img/portfolio/aniversary-affair/right-1.jpeg" alt="gallery item">
+                <p class="img-desc">February 11 2020</p>
+            </div>
+
             <div class="gallery-item">
-                <img src="img/portfolio/bicaz/right-2.jpeg" alt="gallery item">
-                <p class="img-desc">August 16 2020</p>
+                <img src="img/portfolio/aniversary-affair/right-2.jpeg" alt="gallery item">
+                <p class="img-desc">February 11 2020</p>
             </div>
         </div>    
-    </div>
+    </div> 
     <script src="exif-js-master/exif.js"></script>
     <script src="./utils.js"></script>
     <script>
         let nextImageIndexLeft = 3;
         let nextImageIndexRight = 3;
-        const maxLeft = 5;
-        const maxRight = 5;
+        const max = 6;
 
         function loadMoreImages() {
             const leftGalleryRow = document.getElementById("leftRow");
             const rightGalleryRow = document.getElementById("rightRow");
-            if (nextImageIndexLeft <= maxLeft) {
-                appendImage("bicaz", "left", nextImageIndexLeft, leftGalleryRow);
+            if (nextImageIndexLeft <= max) {
+                appendImage("aniversary-affair", "left", nextImageIndexLeft, leftGalleryRow);
                 nextImageIndexLeft++;
             }
-            if (nextImageIndexRight <= maxRight) {
-                appendImage("bicaz", "right", nextImageIndexRight, rightGalleryRow);
+            if (nextImageIndexRight <= max) {
+                appendImage("aniversary-affair", "right", nextImageIndexRight, rightGalleryRow);
                 nextImageIndexRight++;
             }
         }
 
         window.addEventListener("scrollend", function() {
-            if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= max) || (nextImageIndexLeft <= max))) {
                 loadMoreImages();
             }
         });
