@@ -26,36 +26,33 @@
     <div class="flex-container">
         <div id="leftRow" class="column">
             <div class="port-item">
-                <a href="./venice.html">
-                    <img src="./img/portfolio/portofolio-covers/left-1.jpeg">
-                    <p class="album-title">Venice</p></a>
+                <a href="./guell.html">
+                    <img src="./img/portfolio/portofolio-covers/left-22.jpeg">
+                    <p class="album-title">Guell</p></a>
             </div>
-
             <div class="port-item">
                 <a href="./bright-side.html">
-                    <img src="./img/portfolio/portofolio-covers/left-2.jpeg">
+                    <img src="./img/portfolio/portofolio-covers/left-21.jpeg">
                     <p class="album-title">Bright side</p></a>
             </div>
         </div>
-
         <div id="rightRow" class="column">
             <div class="port-item">
-                <a href="./green-empire.html">
-                    <img src="./img/portfolio/portofolio-covers/right-1.JPG">
-                    <p class="album-title">Green empire</p></a>
+                <a href="./venice.html">
+                    <img src="./img/portfolio/portofolio-covers/right-21.jpeg">
+                    <p class="album-title">Venice</p></a>
             </div>
-        
             <div class="port-item">
-                <a href="./surprise.html">
-                    <img src="./img/portfolio/portofolio-covers/right-2.jpeg">
-                    <p class="album-title">Surprise</p></a>
+                <a href="./green-empire.html">
+                    <img src="./img/portfolio/portofolio-covers/right-20.jpeg">
+                    <p class="album-title">Green empire</p></a>
             </div>
         </div>
     </div>
     <script>
-        let nextImageIndexLeft = 3;
-        let nextImageIndexRight = 3;
-        const maxIndexLeft = 23;
+        let lastIndexLeft = 20; //22 - 2
+        let lastIndexRight = 19 //20 - 2;
+        const maxIndexLeft = 2;
         const maxIndexRight = 21;
 
         function checkIfImageExists(src, successCallback) {
@@ -68,58 +65,58 @@
             return title ? `./${title.replace(' ', '-').toLowerCase()}.html` : '';
         };
 
-        const titleLeftArray = ["Venice", "Bright side", "Street details", "Rural", "Evening activities", "Cluj", "Dacia", "Cotroceni", "Granny", "New member", "Mariage story", "Bicaz", "Last day", "Grocery list", "Greens", "Nature", "Yellow", "Sea", "Azuga", "Urban", "Raluca", "Late winter"];
-        const titleRightArray = ["Green empire", "Surprise", "Autumn sun", "Train to nowhere", "Alice in mushroomland", "Nightlite", "Selfportraits", "Baby", "Bothanical garden", "West views", "Picnic", "Sunday surprise", "Unknown apartement visit", "November sun", "Dad", "Lonely habbits", "Aniversary affair", "Busteni", "Snow in march", "February sea"]
+        const titleLeftArray = ["Late winter", "Raluca", "Urban", "Azuga", "Sea", "Yellow", "Nature", "Greens", "Grocery list", "Last day", "Bicaz", "Mariage story", "New member", "Granny", "Cotroceni", "Dacia", "Cluj", "Evening activities", "Rural", "Street details", "Bright side", "Guell"];
+        const titleRightArray = ["February sea", "Snow in march", "Busteni", "Aniversary affair", "Lonely habbits", "Dad", "November sun", "Unknown apartement visit", "Sunday surprise", "Picnic", "West views", "Bothanical garden", "Baby", "Selfportraits", "Nightlite", "Alice in mushroomland", "Train to nowhere", "Autumn sun", "Surprise", "Green empire", "Venice"]
 
         function loadMoreImages() {
             const leftGalleryRow = document.getElementById("leftRow");
             const rightGalleryRow = document.getElementById("rightRow");
 
-            if (nextImageIndexLeft + 1 <= maxIndexLeft) {
+            if (lastIndexLeft >= 1) {
                 const leftImageDiv = document.createElement("div");
                 leftImageDiv.className = "port-item";
                 const anchorElement = document.createElement("a");
-                anchorElement.setAttribute('href', parseTitleToHref(titleLeftArray[nextImageIndexLeft - 1]));
+                anchorElement.setAttribute('href', parseTitleToHref(titleLeftArray[lastIndexLeft - 1]));
 
                 const leftNewImage = document.createElement("img");
-                leftNewImage.src = "img/portfolio/portofolio-covers/left-" + nextImageIndexLeft + ".jpeg";
+                leftNewImage.src = "img/portfolio/portofolio-covers/left-" + lastIndexLeft + ".jpeg";
     
                 const pWithTitleForLeft = document.createElement("p");
-                pWithTitleForLeft.id = "left-" + (nextImageIndexLeft + 1);
+                pWithTitleForLeft.id = "left-" + (lastIndexLeft);
                 pWithTitleForLeft.className = "album-title";
-                pWithTitleForLeft.innerHTML = titleLeftArray[nextImageIndexLeft - 1]
+                pWithTitleForLeft.innerHTML = titleLeftArray[lastIndexLeft - 1]
 
                 anchorElement.appendChild(leftNewImage);
                 anchorElement.appendChild(pWithTitleForLeft);
                 leftImageDiv.appendChild(anchorElement);
                 leftGalleryRow.appendChild(leftImageDiv);
-                nextImageIndexLeft++;
+                lastIndexLeft--;
             }
 
-            if (nextImageIndexRight + 1 <= maxIndexRight) {
+            if (lastIndexRight >= 1) {
                 const rightImageDiv = document.createElement("div");
                 rightImageDiv.className = "port-item";
                 const anchorElement = document.createElement("a");
-                anchorElement.setAttribute('href', parseTitleToHref(titleRightArray[nextImageIndexRight - 1]));
+                anchorElement.setAttribute('href', parseTitleToHref(titleRightArray[lastIndexRight - 1]));
 
                 const rightNewImage = document.createElement("img");
-                rightNewImage.src = "img/portfolio/portofolio-covers/right-" + nextImageIndexRight + ".jpeg";
+                rightNewImage.src = "img/portfolio/portofolio-covers/right-" + lastIndexRight + ".jpeg";
     
                 const pWithTitleForRight = document.createElement("p");
-                pWithTitleForRight.id = "right-" + (nextImageIndexRight + 1);
+                pWithTitleForRight.id = "right-" + (lastIndexRight);
                 pWithTitleForRight.className = "album-title";
-                pWithTitleForRight.innerHTML = titleRightArray[nextImageIndexRight - 1]
+                pWithTitleForRight.innerHTML = titleRightArray[lastIndexRight - 1]
 
                 anchorElement.appendChild(rightNewImage);
                 anchorElement.appendChild(pWithTitleForRight);
                 rightImageDiv.appendChild(anchorElement);
                 rightGalleryRow.appendChild(rightImageDiv);
-                nextImageIndexRight++;
+                lastIndexRight--;
             }
         }
 
         window.addEventListener("scrollend", function() {
-            if (isScrolledToBottom() && ((nextImageIndexRight + 1 <= maxIndexRight) || (nextImageIndexLeft + 1 <= maxIndexLeft))) {
+            if (isScrolledToBottom() && ((lastIndexRight >= 1) || (lastIndexLeft >= 1))) {
                 loadMoreImages();
             }
         });
