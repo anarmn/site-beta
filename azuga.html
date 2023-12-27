@@ -35,12 +35,12 @@
         </div>
 
         <div id="rightRow" class="column movement-right">
-            <div class="gallery-item">
+            <div class="gallery-item display-none-on-mobile">
                 <img src="img/portfolio/azuga/right-1.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
             </div>
 
-            <div class="gallery-item">
+            <div class="gallery-item display-none-on-mobile">
                 <img src="img/portfolio/azuga/right-2.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2020</p>
             </div>
@@ -54,19 +54,29 @@
         const maxLeft = 4;
         const maxRight = 5;
 
-        function loadMoreImages() {
-            const leftGalleryRow = document.getElementById("leftRow");
-            const rightGalleryRow = document.getElementById("rightRow");
-            if (nextImageIndexLeft <= maxLeft) {
-                appendImage("azuga", "left", nextImageIndexLeft, leftGalleryRow);
-                nextImageIndexLeft++;
+        const addImageToDiv = position => {
+            appendImage("azuga", position, position === "left" ? nextImageIndexLeft : nextImageIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"));
+            position === "left" ? nextImageIndexLeft++ : nextImageIndexRight++;
+        };
+        if (window.innerWidth > 632) {
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= maxLeft) {
+                    addImageToDiv("left");
+                }
+                if (nextImageIndexRight <= maxRight) {
+                    addImageToDiv("right");
+                }
             }
-            if (nextImageIndexRight <= maxRight) {
-                appendImage("azuga", "right", nextImageIndexRight, rightGalleryRow);
-                nextImageIndexRight++;
+        } else {
+            nextImageIndexRight = 1;
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= maxLeft) {
+                    addImageToDiv("left");
+                } else if (nextImageIndexRight <= maxRight) {
+                    addImageToDiv("right");
+                }
             }
         }
-
         window.addEventListener("scrollend", function() {
             if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
                 loadMoreImages();

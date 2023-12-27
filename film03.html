@@ -22,60 +22,64 @@
     </header>
 
     <div class="flex-container">
-        <div class="column movement-left">
+        <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/film/film03/000022.JPG" alt="gallery item">
+                <img src="img/portfolio/film03/left-1.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
             <div class="gallery-item">
-                <img src="img/film/film03/000017.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000047.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000045.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000004.JPG" alt="gallery item">
+                <img src="img/portfolio/film03/left-2.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
         </div>
 
-        <div class="column movement-right">
-            <div class="gallery-item">
-                <img src="img/film/film03/000048.JPG" alt="gallery item">
+        <div id="rightRow" class="column movement-right">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/film03/right-1.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000049.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000005.JPG" alt="gallery item">
-                <p class="img-desc">August 22 2020</p>
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000046.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            
-            <div class="gallery-item">
-                <img src="img/film/film03/000042.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000043.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-            <div class="gallery-item">
-                <img src="img/film/film03/000061.JPG" alt="gallery item">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/film03/right-2.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
         </div>    
-    </div>  
+    </div>
+    <script src="exif-js-master/exif.js"></script>
+    <script src="./utils.js"></script>
+    <script>
+        let nextImageIndexLeft = 3;
+        let nextImageIndexRight = 3;
+        const maxLeft = 5;
+        const maxRight = 7;
+
+        const addImageToDiv = position => {
+            appendImage("film03", position, position === "left" ? nextImageIndexLeft : nextImageIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"));
+            position === "left" ? nextImageIndexLeft++ : nextImageIndexRight++;
+        };
+        if (window.innerWidth > 632) {
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= maxLeft) {
+                    addImageToDiv("left");
+                }
+                if (nextImageIndexRight <= maxRight) {
+                    addImageToDiv("right");
+                }
+            }
+        } else {
+            nextImageIndexRight = 1;
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= maxLeft) {
+                    addImageToDiv("left");
+                } else if (nextImageIndexRight <= maxRight) {
+                    addImageToDiv("right");
+                }
+            }
+        }
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+                loadMoreImages();
+            }
+        });
+    </script> 
 </body>
 </html>

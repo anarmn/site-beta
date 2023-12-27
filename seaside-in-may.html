@@ -22,46 +22,65 @@
     </header>
 
     <div class="flex-container">
-        <div class="column movement-left">
-
+        <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000039.JPG" alt="gallery item">
+                <img src="img/portfolio/seaside-in-may/left-1.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
-
             <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000004.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000041.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000038.JPG" alt="gallery item">
+                <img src="img/portfolio/seaside-in-may/left-2.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
         </div>
 
-        <div class="column movement-right">
-            <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000040.JPG" alt="gallery item">
+        <div id="rightRow" class="column movement-right">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/seaside-in-may/right-1.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
-
-            <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000006.JPG" alt="gallery item">
-                <!-- <p class="img-desc">August 22 2020</p> -->
-            </div>
-
-            <div class="gallery-item">
-                <img src="img/film/seaside-in-may/000005.JPG" alt="gallery item">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/seaside-in-may/right-2.jpeg" alt="gallery item">
                 <!-- <p class="img-desc">August 22 2020</p> -->
             </div>
         </div>    
-    </div> 
-        
+    </div>    
+    <script src="exif-js-master/exif.js"></script>
+    <script src="./utils.js"></script>
+    <script>
+        let nextImageIndexLeft = 3;
+        let nextImageIndexRight = 3;
+        const maxLeft = 4;
+        const maxRight = 3;
+
+        const addImageToDiv = position => {
+            appendImage("seaside-in-may", position, position === "left" ? nextImageIndexLeft : nextImageIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"));
+            position === "left" ? nextImageIndexLeft++ : nextImageIndexRight++;
+        };
+        if (window.innerWidth > 632) {
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= maxLeft) {
+                    addImageToDiv("left");
+                }
+                if (nextImageIndexRight <= maxRight) {
+                    addImageToDiv("right");
+                }
+            }
+        } else {
+            nextImageIndexRight = 1;
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= maxLeft) {
+                    addImageToDiv("left");
+                } else if (nextImageIndexRight <= maxRight) {
+                    addImageToDiv("right");
+                }
+            }
+        }
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+                loadMoreImages();
+            }
+        });
+    </script>
+    
 </body>
 </html>

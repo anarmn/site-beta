@@ -24,133 +24,63 @@
     <div class="flex-container">
         <div id="leftRow" class="column movement-left">
             <div class="gallery-item">
-                <img src="img/portfolio/bicaz-birthday/surprise-left-1.jpeg" alt="gallery item">
+                <img src="img/portfolio/bicaz-birthday/left-1.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2021</p>
             </div>
 
             <div class="gallery-item">
-                <img src="img/portfolio/bicaz-birthday/surprise-left-2.jpeg" alt="gallery item">
+                <img src="img/portfolio/bicaz-birthday/left-2.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2021</p>
             </div>
         </div>
 
         <div id="rightRow" class="column movement-right">
-            <div class="gallery-item">
-                <img src="img/portfolio/bicaz-birthday/surprise-right-1.jpeg" alt="gallery item">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/bicaz-birthday/right-1.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2021</p>
             </div>
 
-            <div class="gallery-item">
-                <img src="img/portfolio/bicaz-birthday/surprise-right-2.jpeg" alt="gallery item">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/bicaz-birthday/right-2.jpeg" alt="gallery item">
                 <p class="img-desc">August 22 2021</p>
             </div>
         </div>    
     </div> 
     <script src="exif-js-master/exif.js"></script>
+    <script src="./utils.js"></script>
     <script>
         let nextImageIndexLeft = 2;
         let nextImageIndexRight = 2;
         const max = 4;
 
-        function checkIfImageExists(src, successCallback) {
-            const img = new Image();
-            img.onload = successCallback;
-            img.src = src;
+        const addImageToDiv = position => {
+            appendImage("bicaz-birthday", position, position === "left" ? nextImageIndexLeft : nextImageIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"));
+            position === "left" ? nextImageIndexLeft++ : nextImageIndexRight++;
         };
-
-        function loadMoreImages() {
-            const leftGalleryRow = document.getElementById("leftRow");
-            const rightGalleryRow = document.getElementById("rightRow");
-
-            if (nextImageIndexLeft + 1 <= max) {
-                const leftImageDiv = document.createElement("div");
-                leftImageDiv.className = "gallery-item";
-                const leftNewImage = document.createElement("img");
-
-                leftNewImage.src = "img/portfolio/bicaz-birthday/surprise-left-" + (nextImageIndexLeft + 1) + ".jpeg";
-                leftNewImage.className = "image";
-                const pWithDateForLeft = document.createElement("p");
-                pWithDateForLeft.id = "surprise-left-" + (nextImageIndexLeft + 1);
-                pWithDateForLeft.className = "img-desc";
-                extractExifData(leftNewImage, "surprise-left-" + (nextImageIndexLeft + 1), handleExifData);
-                leftImageDiv.appendChild(leftNewImage);
-                leftImageDiv.appendChild(pWithDateForLeft);
-                leftGalleryRow.appendChild(leftImageDiv);
-                nextImageIndexLeft++;
+        if (window.innerWidth > 632) {
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= max) {
+                    addImageToDiv("left");
+                }
+                if (nextImageIndexRight <= max) {
+                    addImageToDiv("right");
+                }
             }
-
-            if (nextImageIndexRight + 1 <= max) {
-                const rightImageDiv = document.createElement("div");
-                rightImageDiv.className = "gallery-item";
-                const rightNewImage = document.createElement("img");
-
-                rightNewImage.src = "img/portfolio/bicaz-birthday/surprise-right-" + (nextImageIndexRight + 1) + ".jpeg";
-                rightNewImage.className = "image";
-                const pWithDateForRight = document.createElement("p");
-                pWithDateForRight.id = "surprise-right-" + (nextImageIndexRight + 1);
-                pWithDateForRight.className = "img-desc";
-                extractExifData(rightNewImage, "surprise-right-" + (nextImageIndexRight + 1), handleExifData);
-
-                rightImageDiv.appendChild(rightNewImage);
-                rightImageDiv.append(pWithDateForRight);
-                rightGalleryRow.appendChild(rightImageDiv);
-                nextImageIndexRight++;
+        } else {
+            nextImageIndexRight = 1;
+            function loadMoreImages() {
+                if (nextImageIndexLeft <= max) {
+                    addImageToDiv("left");
+                } else if (nextImageIndexRight <= max) {
+                    addImageToDiv("right");
+                }
             }
         }
-
         window.addEventListener("scrollend", function() {
-            if (isScrolledToBottom() && ((nextImageIndexRight + 1 <= max) || (nextImageIndexLeft + 1 <= max))) {
+            if (isScrolledToBottom() && ((nextImageIndexRight <= max) || (nextImageIndexLeft <= max))) {
                 loadMoreImages();
             }
         });
-
-        function isScrolledToBottom() {
-            // Calculate the current scroll position
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            // Calculate the total height of the document
-            const documentHeight = document.documentElement.scrollHeight;
-            // Calculate the height of the viewport
-            const windowHeight = window.innerHeight;
-            // Calculate how far the user has scrolled from the top
-            const scrollPosition = scrollTop + windowHeight;
-            // Check if the user has scrolled to the bottom of the page
-            return scrollPosition >= documentHeight - 350;
-        }
-
-        function formatDate(inputDate) {
-            const [datePart, timePart] = inputDate.split(' ');
-            const [year, month, day] = datePart.split(':');
-
-            const monthNames = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-
-            const newDate = new Date(year, month - 1, day);
-            const monthName = monthNames[newDate.getMonth()];
-            const yearPart = year;
-            const formattedDate = `${monthName} ${day}, ${yearPart}`;
-            return formattedDate;
-        }
-
-        function handleExifData(dateTimeOriginal, pId) {
-            const p = document.getElementById(pId);
-            if (dateTimeOriginal) {
-                p.innerHTML = formatDate(dateTimeOriginal);
-            }
-        }
-
-        function extractExifData(image, pId, callback) {
-            image.onload = function() {
-                EXIF.getData(image, function () {
-                    if (EXIF.getTag(this, "DateTimeOriginal")) {
-                        callback(EXIF.getTag(this, "DateTimeOriginal"), pId);
-                    } else if (EXIF.getTag(this, "DateTime")) {
-                        callback(EXIF.getTag(this, "DateTime"), pId);
-                    }
-                })
-            }
-        }
     </script>
 </body>
 </html>

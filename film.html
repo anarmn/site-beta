@@ -24,46 +24,67 @@
     </header>
 
     <div class="flex-container">
-        <div class="column">
+        <div id="leftRow" class="column">
             <div class="port-item">
-                <a href="./sibiu-on-film.html">
-                    <img src="./img/film/sibiu/church.jpeg">
-                    <p class="album-title">SIBIU</p></a>
+                <a href="./sound-check.html">
+                    <img src="./img/portfolio/film-covers/left-4.jpeg">
+                    <p class="album-title">Sound check</p></a>
             </div>
             <div class="port-item">
-                <a href="./film01.html">
-                    <img src="./img/film/film01/000041.JPG">
-                    <p class="album-title">FILM01</p></a>
-            </div>
-            
-            <div class="port-item">
-                <a href="./film03.html">
-                    <img src="./img/film/film03/000022.JPG">
-                    <p class="album-title">FILM03</p></a>
+                <a href="./sibiu.html">
+                    <img src="./img/portfolio/film-covers/left-3.jpeg">
+                    <p class="album-title">Sibiu</p></a>
             </div>
         </div>
-        <div class="column">
-            <div class="port-item">
-                <a href="./sighisoara-film.html">
-                    <img src="./img/film/sighisoara/000043.JPG">
-                    <p class="album-title">SIGHISOARA</p></a>
+        <div id="rightRow" class="column">
+            <div class="port-item display-none-on-mobile">
+                <a href="./sighisoara.html">
+                    <img src="./img/portfolio/film-covers/right-4.jpeg">
+                    <p class="album-title">Sighisoara</p></a>
             </div>
-            <div class="port-item">
-                <a href="./mamaia-film.html">
-                    <img src="./img/film/mamaia/000057.JPG">
-                    <p class="album-title">MAMAIA/FILM03</p></a>
-            </div>
-            <div class="port-item">
-                <a href="./seaside-in-may.html">
-                    <img src="./img/film/seaside-in-may/000039.JPG">
-                    <p class="album-title">SEASIDE IN MAY/FILM02</p></a>
-            </div>
-            <div class="port-item">
-                <a href="./film02.html">
-                    <img src="./img/film/film02/000036.JPG">
-                    <p class="album-title">FILM02</p></a>
+            <div class="port-item display-none-on-mobile">
+                <a href="./mamaia-on-film.html">
+                    <img src="./img/portfolio/film-covers/right-3.jpeg">
+                    <p class="album-title">Mamaia</p></a>
             </div>
         </div>
     </div>
+    <script src="./utils.js"></script>
+    <script>
+        let lastIndexLeft = 2; //4 - 2
+        let lastIndexRight = 2 //4 - 2;
+
+        const titleLeftArray = ["Film03", "Film01", "Sibiu", "Sound check"];
+        const titleRightArray = ["Film02", "Seaside in may", "Mamaia", "Sighisoara"];
+
+        const addAnchorToDiv = position => {
+            appendAnchor("film-covers", position, position === "left" ? lastIndexLeft : lastIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"), position === "left" ? titleLeftArray : titleRightArray);
+            position === "left" ? lastIndexLeft-- : lastIndexRight--;
+        };
+        if (window.innerWidth > 600) {
+            function loadMoreImages() {
+                if (lastIndexLeft >= 1) {
+                    addAnchorToDiv("left");
+                }
+                if (lastIndexRight >= 1) {
+                    addAnchorToDiv("right");
+                }
+            }
+        } else {
+            lastIndexRight = 21;
+            function loadMoreImages() {
+                if (lastIndexLeft >= 1) {
+                    addAnchorToDiv("left");
+                } else if (lastIndexRight >= 1) {
+                    addAnchorToDiv("right");
+                }
+            }
+        }
+        window.addEventListener("scrollend", function() {
+            if (isScrolledToBottom() && ((lastIndexRight >= 1) || (lastIndexLeft >= 1))) {
+                loadMoreImages();
+            }
+        });
+    </script>
 </body>
   

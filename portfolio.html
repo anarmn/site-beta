@@ -6,9 +6,7 @@
     <title>Portfolio</title>
     <link rel="stylesheet" href="./css/styles.css" type="text/css">
     <link rel="stylesheet" href="./css/portfolio.css" type="text/css">
-
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
-    
 </head>
 <body>
     <header>
@@ -37,103 +35,54 @@
             </div>
         </div>
         <div id="rightRow" class="column">
-            <div class="port-item">
+            <div class="port-item display-none-on-mobile">
                 <a href="./venice.html">
                     <img src="./img/portfolio/portofolio-covers/right-21.jpeg">
                     <p class="album-title">Venice</p></a>
             </div>
-            <div class="port-item">
+            <div class="port-item display-none-on-mobile">
                 <a href="./green-empire.html">
                     <img src="./img/portfolio/portofolio-covers/right-20.jpeg">
                     <p class="album-title">Green empire</p></a>
             </div>
         </div>
     </div>
+    <script src="./utils.js"></script>
     <script>
         let lastIndexLeft = 20; //22 - 2
-        let lastIndexRight = 19 //20 - 2;
-        const maxIndexLeft = 2;
-        const maxIndexRight = 21;
-
-        function checkIfImageExists(src, successCallback) {
-            const img = new Image();
-            img.onload = successCallback;
-            img.src = src;
-        };
-
-        const parseTitleToHref = title => {
-            return title ? `./${title.replace(' ', '-').toLowerCase()}.html` : '';
-        };
+        let lastIndexRight = 19 //21 - 2;
 
         const titleLeftArray = ["Late winter", "Raluca", "Urban", "Azuga", "Sea", "Yellow", "Nature", "Greens", "Grocery list", "Last day", "Bicaz", "Mariage story", "New member", "Granny", "Cotroceni", "Dacia", "Cluj", "Evening activities", "Rural", "Street details", "Bright side", "Guell"];
-        const titleRightArray = ["February sea", "Snow in march", "Busteni", "Aniversary affair", "Lonely habbits", "Dad", "November sun", "Unknown apartement visit", "Sunday surprise", "Picnic", "West views", "Bothanical garden", "Baby", "Selfportraits", "Nightlite", "Alice in mushroomland", "Train to nowhere", "Autumn sun", "Surprise", "Green empire", "Venice"]
+        const titleRightArray = ["February sea", "Snow in march", "Busteni", "Aniversary affair", "Lonely habbits", "Dad", "November sun", "Unknown apartement visit", "Sunday surprise", "Picnic", "West views", "Bothanical garden", "Baby", "Selfportraits", "Nightlite", "Alice in mushroomland", "Train to nowhere", "Autumn sun", "Surprise", "Green empire", "Venice"];
 
-        function loadMoreImages() {
-            const leftGalleryRow = document.getElementById("leftRow");
-            const rightGalleryRow = document.getElementById("rightRow");
-
-            if (lastIndexLeft >= 1) {
-                const leftImageDiv = document.createElement("div");
-                leftImageDiv.className = "port-item";
-                const anchorElement = document.createElement("a");
-                anchorElement.setAttribute('href', parseTitleToHref(titleLeftArray[lastIndexLeft - 1]));
-
-                const leftNewImage = document.createElement("img");
-                leftNewImage.src = "img/portfolio/portofolio-covers/left-" + lastIndexLeft + ".jpeg";
-    
-                const pWithTitleForLeft = document.createElement("p");
-                pWithTitleForLeft.id = "left-" + (lastIndexLeft);
-                pWithTitleForLeft.className = "album-title";
-                pWithTitleForLeft.innerHTML = titleLeftArray[lastIndexLeft - 1]
-
-                anchorElement.appendChild(leftNewImage);
-                anchorElement.appendChild(pWithTitleForLeft);
-                leftImageDiv.appendChild(anchorElement);
-                leftGalleryRow.appendChild(leftImageDiv);
-                lastIndexLeft--;
+        const addAnchorToDiv = position => {
+            appendAnchor("portofolio-covers", position, position === "left" ? lastIndexLeft : lastIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"), position === "left" ? titleLeftArray : titleRightArray);
+            position === "left" ? lastIndexLeft-- : lastIndexRight--;
+        };
+        if (window.innerWidth > 600) {
+            function loadMoreImages() {
+                if (lastIndexLeft >= 1) {
+                    addAnchorToDiv("left");
+                }
+                if (lastIndexRight >= 1) {
+                    addAnchorToDiv("right");
+                }
             }
-
-            if (lastIndexRight >= 1) {
-                const rightImageDiv = document.createElement("div");
-                rightImageDiv.className = "port-item";
-                const anchorElement = document.createElement("a");
-                anchorElement.setAttribute('href', parseTitleToHref(titleRightArray[lastIndexRight - 1]));
-
-                const rightNewImage = document.createElement("img");
-                rightNewImage.src = "img/portfolio/portofolio-covers/right-" + lastIndexRight + ".jpeg";
-    
-                const pWithTitleForRight = document.createElement("p");
-                pWithTitleForRight.id = "right-" + (lastIndexRight);
-                pWithTitleForRight.className = "album-title";
-                pWithTitleForRight.innerHTML = titleRightArray[lastIndexRight - 1]
-
-                anchorElement.appendChild(rightNewImage);
-                anchorElement.appendChild(pWithTitleForRight);
-                rightImageDiv.appendChild(anchorElement);
-                rightGalleryRow.appendChild(rightImageDiv);
-                lastIndexRight--;
+        } else {
+            lastIndexRight = 21;
+            function loadMoreImages() {
+                if (lastIndexLeft >= 1) {
+                    addAnchorToDiv("left");
+                } else if (lastIndexRight >= 1) {
+                    addAnchorToDiv("right");
+                }
             }
         }
-
         window.addEventListener("scrollend", function() {
             if (isScrolledToBottom() && ((lastIndexRight >= 1) || (lastIndexLeft >= 1))) {
                 loadMoreImages();
             }
         });
-
-        function isScrolledToBottom() {
-            // Calculate the current scroll position
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            // Calculate the total height of the document
-            const documentHeight = document.documentElement.scrollHeight;
-            // Calculate the height of the viewport
-            const windowHeight = window.innerHeight;
-            // Calculate how far the user has scrolled from the top
-            const scrollPosition = scrollTop + windowHeight;
-            // Check if the user has scrolled to the bottom of the page
-            return scrollPosition >= documentHeight - 400;
-        }
-
     </script>
 </body>
   

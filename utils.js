@@ -57,10 +57,34 @@ appendImage = (portofolioName, position, index, galleryRow) => {
     galleryRow.appendChild(imageDiv);   
 }
 
+const parseTitleToHref = title => {
+    return title ? `./${title.replaceAll(' ', '-').toLowerCase()}.html` : '';
+};
+
+appendAnchor = (portofolioName, position, index, galleryRow, arrayForPosition) => {
+    const imageDiv = document.createElement("div");
+    imageDiv.className = "port-item";
+    const anchorElement = document.createElement("a");
+    anchorElement.setAttribute('href', parseTitleToHref(arrayForPosition[index - 1]));
+
+    const newImage = document.createElement("img");
+    newImage.src = `img/portfolio/${portofolioName}/${position}-${index}.jpeg`;
+
+    const pWithTitleForLeft = document.createElement("p");
+    pWithTitleForLeft.id = "left-" + index;
+    pWithTitleForLeft.className = "album-title";
+    pWithTitleForLeft.innerHTML = arrayForPosition[index - 1]
+
+    anchorElement.appendChild(newImage);
+    anchorElement.appendChild(pWithTitleForLeft);
+    imageDiv.appendChild(anchorElement);
+    galleryRow.appendChild(imageDiv);  
+}
+
 function isScrolledToBottom() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const documentHeight = document.documentElement.scrollHeight;
     const windowHeight = window.innerHeight;
     const scrollPosition = scrollTop + windowHeight;
-    return scrollPosition >= documentHeight - 250;
+    return scrollPosition >= documentHeight - 400;
 }

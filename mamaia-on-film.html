@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mamaia</title>
+    <link rel="stylesheet" href="./css/styles.css" type="text/css">
+    <link rel="stylesheet" href="./css/index.css" type="text/css">  
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <p class="name">Roman Ana-Maria<p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="film.html">Film</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex-container">
+        <div id="leftRow" class="column movement-left">
+            <div class="gallery-item">
+                <img src="img/portfolio/mamaia-on-film/left-1.jpeg" alt="gallery item">
+                <!-- <p class="img-desc">August 22 2020</p> -->
+            </div>
+            <div class="gallery-item">
+                <img src="img/portfolio/mamaia-on-film/left-2.jpeg" alt="gallery item">
+                <!-- <p class="img-desc">August 22 2020</p> -->
+            </div>
+        </div>
+        <div id="rightRow" class="column movement-right">
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/mamaia-on-film/right-1.jpeg" alt="gallery item">
+                <!-- <p class="img-desc">August 22 2020</p> -->
+            </div>
+            <div class="gallery-item display-none-on-mobile">
+                <img src="img/portfolio/mamaia-on-film/right-2.jpeg" alt="gallery item">
+                <!-- <p class="img-desc">August 22 2020</p> -->
+            </div>
+        </div>   
+        <script src="exif-js-master/exif.js"></script>
+        <script src="./utils.js"></script>
+        <script>
+            let nextImageIndexLeft = 3;
+            let nextImageIndexRight = 3;
+            const maxLeft = 4;
+            const maxRight = 4;
+    
+            const addImageToDiv = position => {
+                appendImage("mamaia-on-film", position, position === "left" ? nextImageIndexLeft : nextImageIndexRight, position === "left" ? document.getElementById("leftRow") : document.getElementById("rightRow"));
+                position === "left" ? nextImageIndexLeft++ : nextImageIndexRight++;
+            };
+            if (window.innerWidth > 632) {
+                function loadMoreImages() {
+                    if (nextImageIndexLeft <= maxLeft) {
+                        addImageToDiv("left");
+                    }
+                    if (nextImageIndexRight <= maxRight) {
+                        addImageToDiv("right");
+                    }
+                }
+            } else {
+                nextImageIndexRight = 1;
+                function loadMoreImages() {
+                    if (nextImageIndexLeft <= maxLeft) {
+                        addImageToDiv("left");
+                    } else if (nextImageIndexRight <= maxRight) {
+                        addImageToDiv("right");
+                    }
+                }
+            }
+            window.addEventListener("scrollend", function() {
+                if (isScrolledToBottom() && ((nextImageIndexRight <= maxRight) || (nextImageIndexLeft <= maxLeft))) {
+                    loadMoreImages();
+                }
+            });
+        </script> 
+    </div> 
+</body>
+</html>
