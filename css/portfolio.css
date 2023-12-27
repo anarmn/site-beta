@@ -46,7 +46,7 @@ p {
   left: 0;
   text-align: left;
   top: 0px;
-  margin: 0px;
+  margin: 0px 5px;
   letter-spacing: 7px;
   text-transform: uppercase;
   transition:  ease-in-out 250ms;
